@@ -33,6 +33,33 @@ tailwind.config = {
 }
 </script>
 <style>
+html {
+  font-size: 16px;
+}
+html.zoom-115 {
+  font-size: 18.4px;
+}
+html.zoom-130 {
+  font-size: 20.8px;
+}
+html.is-preview,
+html.is-preview.zoom-115,
+html.is-preview.zoom-130 {
+  font-size: 16px !important;
+}
+body.preview-active {
+  background-color: #E2E8F0;
+}
+body.preview-active #printable-sheet {
+  max-width: 210mm;
+  margin: 1.5rem auto 3rem auto;
+  background-color: #FAF8F5;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+  border: 1px solid #CBD5E1;
+}
+body.preview-active .no-print {
+  display: none !important;
+}
 .chart-container {
   position: relative;
   width: 100%;
@@ -51,15 +78,63 @@ tailwind.config = {
   font-family: 'Amiri', serif;
   direction: rtl;
   unicode-bidi: isolate;
+  line-height: 1.85;
+}
+@media print {
+  html,
+  html.zoom-115,
+  html.zoom-130,
+  html.is-preview {
+    font-size: 16px !important;
+  }
+  body,
+  body.preview-active {
+    background-color: #FFFFFF !important;
+    color: #1E293B !important;
+  }
+  body.preview-active #printable-sheet {
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .no-print,
+  #preview-banner {
+    display: none !important;
+  }
+  section,
+  .print-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .chart-container {
+    height: 280px !important;
+    max-height: 280px !important;
+  }
 }
 </style>
 </head>
 <body class="bg-alabaster text-ink font-sans antialiased selection:bg-emeraldsoft selection:text-emeralddeep">
 
 <!-- Chosen Palette: Warm Alabaster & Deep Emerald Harmony (Alabaster #FAF8F5, Sand #F2EFE9, Deep Slate #1E293B, Deep Emerald #0F766E, Warm Amber #B45309) -->
-<!-- Application Structure Plan: Aplikasi dirancang dengan arsitektur tematik-modular dalam satu halaman (SPA) yang dipandu oleh navigasi atas lengket (sticky navigation). Struktur ini dipilih agar pengguna dapat memahami fondasi dasar (makhraj Al-Jauf, 4 skala harakat, dan hirarki kekuatan Mad) terlebih dahulu sebelum mengeksplorasi cabang hukum Mad secara interaktif berdasarkan pemicunya (Asli, Sebab Hamzah, Sebab Sukun) serta aspek teknis mushaf (Rasm Utsmani dan Dhabt). Setiap bagian dilengkapi simulator interaktif—seperti Simulator Aqwas Sababain, Kalkulator Wajah Waqaf (Sukun Mahdh, Raum, Isymam), dan Sakelar Washal/Waqaf Al-Alifat As-Sab'—untuk mengubah aturan teoritis yang kompleks menjadi pengalaman belajar aktif dan komparatif. -->
-<!-- Visualization & Content Choices: 1. Hirarki Kekuatan Mad (Maratibul Mudud) -> Goal: Compare & Organize -> Horizontal Bar Chart (Chart.js Canvas) -> Interaksi: Tooltip rincian sebab dan rentang harakat -> Memudahkan pemahaman urutan kekuatan 7 jenis Mad. 2. Simulator Pertemuan Dua Sebab (Aqwas Sababain) -> Goal: Relationships & Inform -> Kartu Pemilih Kasus + Toggle Washal/Waqaf -> Interaksi: Klik 5 contoh ayat dan ubah kondisi berhenti/sambung -> Menunjukkan secara langsung sebab mana yang menang dan mana yang gugur. 3. Kalkulator Wajah Waqaf (Muttashil & 'Aridh) -> Goal: Compare & Inform -> Grouped Bar Chart (Chart.js Canvas) + Selector Jenis Mad & Harakat Akhir -> Interaksi: Pilih jenis mad dan harakat akhir (Fathah/Kasrah/Dhammah) -> Memvisualisasikan jumlah wajah bacaan dan kadar harakat Sukun Mahdh, Raum, dan Isymam. 4. Laboratorium Rasm Utsmani (Shifr & Al-Alifat As-Sab') -> Goal: Change & Inform -> Toggle Interaktif Kondisi Washal vs Waqaf -> Interaksi: Ubah status bacaan untuk melihat perubahan panjang harakat pada 7 kata khusus Hafsh. 5. Komparator Mushaf Indonesia vs Madinah -> Goal: Organize & Compare -> Tabel Interaktif & Filter Aspek Dhabt -> Membandingkan penandaan visual kedua mushaf. -->
+<!-- Application Structure Plan: Aplikasi dirancang dengan arsitektur tematik-modular dalam satu halaman (SPA) yang dipandu oleh navigasi atas lengket (sticky navigation). Struktur ini dilengkapi bilah utilitas aksesibilitas (Zoom In huruf untuk pembaca usia 50+, Preview Cetak standar 100%, dan Cetak PDF langsung) pada setiap bagian navigasi tanpa mengubah tata letak standar cetak maupun pratinjau. Konten dibagi menjadi lima bagian tematik: Hirarki & Aqwas Sababain, Mad Asli (2 Harakat) & Pengecualian Hafsh, Mad Sebab Hamzah, Mad Sebab Sukun & Kalkulator Waqaf, serta Laboratorium Rasm Utsmani & Perbandingan Mushaf Indonesia-Madinah. -->
+<!-- Visualization & Content Choices: 1. Hirarki Kekuatan Mad (Maratibul Mudud) -> Goal: Compare & Organize -> Horizontal Bar Chart (Chart.js Canvas) -> Interaksi: Tooltip rincian sebab dan rentang harakat -> Memudahkan pemahaman urutan kekuatan 7 jenis Mad. 2. Simulator Pertemuan Dua Sebab (Aqwas Sababain) -> Goal: Relationships & Inform -> Kartu Pemilih Kasus + Toggle Washal/Waqaf -> Interaksi: Klik 5 contoh ayat dan ubah kondisi berhenti/sambung -> Menunjukkan secara langsung sebab mana yang menang dan mana yang gugur. 3. Kalkulator Wajah Waqaf (Muttashil & 'Aridh) -> Goal: Compare & Inform -> Grouped Bar Chart (Chart.js Canvas) + Selector Jenis Mad & Harakat Akhir -> Interaksi: Pilih jenis mad dan harakat akhir -> Memvisualisasikan jumlah wajah bacaan dan kadar harakat Sukun Mahdh, Raum, dan Isymam. 4. Laboratorium Rasm Utsmani (Shifr & Al-Alifat As-Sab') -> Goal: Change & Inform -> Toggle Interaktif Kondisi Washal vs Waqaf -> Interaksi: Ubah status bacaan untuk melihat perubahan panjang harakat pada 7 kata khusus Hafsh. 5. Komparator Mushaf Indonesia vs Madinah -> Goal: Organize & Compare -> Tabel Interaktif -> Membandingkan penandaan visual kedua mushaf. -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<div id="preview-banner" class="hidden sticky top-0 z-50 bg-ink text-white border-b border-stonewarm shadow-md">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2 text-xs sm:text-sm">
+      <span class="px-2.5 py-0.5 rounded bg-emeralddeep font-bold text-white">Mode Preview Cetak</span>
+      <span>Tampilan menggunakan skala standar dokumen (100%) dan siap dicetak ke PDF.</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" id="btn-banner-print" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-emeralddeep hover:bg-teal-800 text-white transition">🖨️ Cetak PDF Sekarang</button>
+      <button type="button" id="btn-banner-close" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-white text-ink hover:bg-sand transition">✕ Tutup Preview</button>
+    </div>
+  </div>
+</div>
+
+<div id="printable-sheet">
 
 <header class="bg-sand border-b border-stonewarm">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -72,12 +147,12 @@ tailwind.config = {
       Eksplorasi interaktif hukum bacaan panjang (<em>Mad</em>) yang berpangkal pada nazham klasik <em>Tuhfatul Athfal</em> dan <em>Al-Muqaddimah Al-Jazariyyah</em>. Pelajari landasan <em>makhraj Al-Jauf</em>, empat skala ukuran harakat, kaidah pertemuan dua sebab (<em>Aqwas Sababain</em>), wajah <em>waqaf</em>, hingga perbedaan tanda bantu (<em>adh-dhabt</em>) pada Mushaf Standar Indonesia dan Mushaf Madinah.
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+      <div class="print-card bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
         <div class="text-xs font-semibold uppercase tracking-wider text-emeralddeep mb-1">Makhraj Huruf Mad</div>
         <div class="text-lg font-bold text-ink">Rongga Al-Jauf</div>
         <p class="text-xs text-muted mt-1">Rongga tenggorokan hingga mulut; bunyi berhenti seiring habisnya napas (<em>Jazariyyah</em> bait 10).</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+      <div class="print-card bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
         <div class="text-xs font-semibold uppercase tracking-wider text-emeralddeep mb-1">Gugus Huruf Waayin</div>
         <div class="flex items-center justify-between">
           <span class="text-lg font-bold text-ink">و • ا • ي</span>
@@ -85,12 +160,12 @@ tailwind.config = {
         </div>
         <p class="text-xs text-muted mt-1">Alif setelah fathah, ya' sukun setelah kasrah, wawu sukun setelah dhammah.</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+      <div class="print-card bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
         <div class="text-xs font-semibold uppercase tracking-wider text-amberwarm mb-1">4 Ukuran Harakat</div>
         <div class="text-lg font-bold text-ink">2 • 4 • 5 • 6 Harakat</div>
         <p class="text-xs text-muted mt-1"><em>Qashr</em> (2), <em>Tawassuth</em> (4), <em>Fuwaiqut Tawassuth</em> (5), dan <em>Thuul/Isyba'</em> (6).</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+      <div class="print-card bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
         <div class="text-xs font-semibold uppercase tracking-wider text-amberwarm mb-1">Disiplin Tilawah</div>
         <div class="text-lg font-bold text-ink">Konsistensi Tartil</div>
         <p class="text-xs text-muted mt-1">Berlaku di seluruh tempo bacaan (termasuk <em>hadr</em>); memendekkan mad wajib tergolong <em>lahn khafi</em>.</p>
@@ -99,21 +174,37 @@ tailwind.config = {
   </div>
 </header>
 
-<nav class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-stonewarm shadow-sm">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex space-x-2 overflow-x-auto py-3 no-scrollbar" id="main-nav">
-      <a href="#bagian-hirarki" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold bg-emeralddeep text-white transition">1. Hirarki &amp; Aqwas Sababain</a>
-      <a href="#bagian-asli" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">2. Mad Asli (2 Harakat)</a>
-      <a href="#bagian-hamzah" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">3. Mad Sebab Hamzah</a>
-      <a href="#bagian-sukun" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">4. Mad Sebab Sukun &amp; Waqaf</a>
-      <a href="#bagian-mushaf" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">5. Rasm &amp; Perbandingan Mushaf</a>
+<nav class="no-print sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-stonewarm shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5">
+      <div class="flex space-x-1.5 overflow-x-auto pb-1 lg:pb-0" id="main-nav">
+        <a href="#bagian-hirarki" class="nav-link whitespace-nowrap px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-emeralddeep text-white transition">1. Hirarki &amp; Aqwas</a>
+        <a href="#bagian-asli" class="nav-link whitespace-nowrap px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">2. Mad Asli (2H)</a>
+        <a href="#bagian-hamzah" class="nav-link whitespace-nowrap px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">3. Sebab Hamzah</a>
+        <a href="#bagian-sukun" class="nav-link whitespace-nowrap px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">4. Sukun &amp; Waqaf</a>
+        <a href="#bagian-mushaf" class="nav-link whitespace-nowrap px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">5. Rasm &amp; Mushaf</a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-stonewarm">
+        <div class="inline-flex items-center rounded-lg bg-sand p-1 border border-stonewarm" title="Perbesar ukuran huruf untuk kenyamanan baca usia 50 tahunan">
+          <span class="px-2 text-[11px] font-bold text-muted">Huruf:</span>
+          <button type="button" data-zoom="100" class="zoom-btn px-2.5 py-1 rounded-md text-xs font-bold bg-emeralddeep text-white transition">Normal</button>
+          <button type="button" data-zoom="115" class="zoom-btn px-2.5 py-1 rounded-md text-xs font-semibold text-muted hover:text-ink transition">Besar</button>
+          <button type="button" data-zoom="130" class="zoom-btn px-2.5 py-1 rounded-md text-xs font-semibold text-muted hover:text-ink transition">50+ Ekstra</button>
+        </div>
+
+        <div class="inline-flex items-center gap-1.5">
+          <button type="button" id="btn-open-preview" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white border border-stonewarm text-ink hover:bg-sand transition">👁️ Preview</button>
+          <button type="button" id="btn-direct-print" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amberwarm text-white hover:bg-amber-800 transition">🖨️ Cetak PDF</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
 
 <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
 
-  <section id="bagian-hirarki" class="scroll-mt-20">
+  <section id="bagian-hirarki" class="scroll-mt-28">
     <div class="mb-6">
       <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 01 • Fondasi &amp; Kaidah Pertemuan Sebab</span>
       <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Hirarki Kekuatan Mad &amp; Kaidah Aqwas Sababain</h2>
@@ -123,7 +214,7 @@ tailwind.config = {
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+      <div class="print-card lg:col-span-6 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
         <h3 class="text-lg font-bold text-ink mb-1">Grafik Urutan Kekuatan Mad (Maratibul Mudud)</h3>
         <p class="text-xs text-muted mb-4">Arahkan kursor atau ketuk batang grafik untuk melihat alasan kekuatan faktor penyebab dan ukuran harakatnya.</p>
         <div class="chart-container">
@@ -134,26 +225,26 @@ tailwind.config = {
         </div>
       </div>
 
-      <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+      <div class="print-card lg:col-span-6 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div>
             <h3 class="text-lg font-bold text-ink">Simulator Aqwas Sababain</h3>
             <p class="text-xs text-muted">Pilih salah satu dari 5 pertemuan nyata dalam Al-Qur'an dan uji kondisi bacaannya.</p>
           </div>
-          <div class="inline-flex rounded-lg bg-sand p-1 border border-stonewarm" role="group">
+          <div class="no-print inline-flex rounded-lg bg-sand p-1 border border-stonewarm" role="group">
             <button type="button" id="btn-aqwa-washal" class="px-3 py-1.5 text-xs font-semibold rounded-md bg-emeralddeep text-white transition">Kondisi Washal</button>
             <button type="button" id="btn-aqwa-waqaf" class="px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-ink transition">Kondisi Waqaf</button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5" id="aqwa-buttons"></div>
+        <div class="no-print grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5" id="aqwa-buttons"></div>
 
         <div id="aqwa-display" class="p-5 rounded-xl bg-alabaster border border-stonewarm"></div>
       </div>
     </div>
   </section>
 
-  <section id="bagian-asli" class="scroll-mt-20">
+  <section id="bagian-asli" class="scroll-mt-28">
     <div class="mb-6">
       <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 02 • Kadar Qashr (2 Harakat)</span>
       <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Mad Asli (Thabi'i), Mulhaqat, dan Pengecualian Hafsh</h2>
@@ -162,7 +253,7 @@ tailwind.config = {
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-2 mb-6" id="asli-filters">
+    <div class="no-print flex flex-wrap gap-2 mb-6" id="asli-filters">
       <button data-filter="all" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-semibold bg-emeralddeep text-white transition">Semua Kategori (7)</button>
       <button data-filter="pokok" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-medium bg-white border border-stonewarm text-muted hover:text-ink transition">Thabi'i Pokok</button>
       <button data-filter="mulhaq" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-medium bg-white border border-stonewarm text-muted hover:text-ink transition">Mulhaqat (Pengikut)</button>
@@ -171,7 +262,7 @@ tailwind.config = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8" id="asli-cards-container"></div>
 
-    <div class="bg-white p-6 rounded-2xl border border-amberwarm/30 shadow-sm">
+    <div class="print-card bg-white p-6 rounded-2xl border border-amberwarm/30 shadow-sm">
       <div class="flex items-center gap-2 mb-3">
         <span class="px-2.5 py-1 rounded-md bg-ambersoft text-amberwarm text-xs font-bold">Catatan Khusus Riwayat Hafsh</span>
         <h3 class="text-lg font-bold text-ink">Tiga Pengecualian Hukum Ha Dhamir (Ha Kinayah)</h3>
@@ -202,7 +293,7 @@ tailwind.config = {
     </div>
   </section>
 
-  <section id="bagian-hamzah" class="scroll-mt-20">
+  <section id="bagian-hamzah" class="scroll-mt-28">
     <div class="mb-6">
       <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 03 • Mad Far'i Pemicu Hamzah</span>
       <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Mad Wajib Muttashil, Jaiz Munfashil, Shilah Thawilah &amp; Lintas Jalur</h2>
@@ -212,7 +303,7 @@ tailwind.config = {
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+      <div class="print-card bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-lg font-bold text-ink">Mad Wajib Muttashil</h3>
           <span class="px-3 py-1 rounded-full text-xs font-bold bg-emeraldsoft text-emeralddeep">4–5 Harakat (Washal)</span>
@@ -238,7 +329,7 @@ tailwind.config = {
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+      <div class="print-card bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
         <div class="flex items-center justify-between mb-2">
           <h3 class="text-lg font-bold text-ink">Mad Jaiz Munfashil &amp; Shilah Thawilah</h3>
           <span class="px-3 py-1 rounded-full text-xs font-bold bg-ambersoft text-amberwarm">4–5 Harakat (Syathibiyyah)</span>
@@ -265,7 +356,7 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="bg-sand p-5 rounded-2xl border border-stonewarm">
+    <div class="print-card bg-sand p-5 rounded-2xl border border-stonewarm">
       <h4 class="text-sm font-bold text-ink mb-2">Catatan Perbandingan Jalur Thayyibatun Nasyr (Tidak Berlaku di Syathibiyyah)</h4>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-muted leading-relaxed">
         <div class="bg-white p-4 rounded-xl border border-stonewarm">
@@ -280,7 +371,7 @@ tailwind.config = {
     </div>
   </section>
 
-  <section id="bagian-sukun" class="scroll-mt-20">
+  <section id="bagian-sukun" class="scroll-mt-28">
     <div class="mb-6">
       <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 04 • Mad Far'i Pemicu Sukun &amp; Tata Cara Waqaf</span>
       <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Mad Lazim, Mad Farq, Mad 'Aridh Lissukun &amp; Mad Lin</h2>
@@ -289,10 +380,10 @@ tailwind.config = {
       </p>
     </div>
 
-    <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm mb-8">
+    <div class="print-card bg-white p-6 rounded-2xl border border-stonewarm shadow-sm mb-8">
       <h3 class="text-lg font-bold text-ink mb-2">Empat Kategori Mad Lazim (6 Harakat) &amp; Mad Farq</h3>
-      <p class="text-xs text-muted mb-4">Klik tab di bawah untuk meninjau syarat, contoh ayat, dan catatan ketelitian tajwid pada setiap kategori.</p>
-      <div class="flex flex-wrap gap-2 mb-4" id="lazim-tabs">
+      <p class="no-print text-xs text-muted mb-4">Klik tab di bawah untuk meninjau syarat, contoh ayat, dan catatan ketelitian tajwid pada setiap kategori.</p>
+      <div class="no-print flex flex-wrap gap-2 mb-4" id="lazim-tabs">
         <button data-lazim="mutsaqqal-kilmi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-emeralddeep text-white transition">1. Mutsaqqal Kilmi</button>
         <button data-lazim="mukhaffaf-kilmi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition">2. Mukhaffaf Kilmi</button>
         <button data-lazim="mutsaqqal-harfi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition">3. Mutsaqqal Harfi</button>
@@ -303,13 +394,13 @@ tailwind.config = {
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm space-y-5">
+      <div class="print-card lg:col-span-5 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm space-y-5">
         <div>
           <h3 class="text-lg font-bold text-ink mb-1">Kalkulator Wajah Waqaf</h3>
           <p class="text-xs text-muted">Pilih jenis bacaan dan harakat huruf terakhir sebelum diwaqafkan untuk melihat seluruh wajah bacaan yang sah.</p>
         </div>
 
-        <div>
+        <div class="no-print">
           <label class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">1. Pilih Jenis Mad Saat Waqaf</label>
           <select id="waqaf-type-select" class="w-full p-2.5 rounded-xl bg-alabaster border border-stonewarm text-sm font-semibold text-ink focus:outline-none focus:border-emeralddeep">
             <option value="aridh">Mad 'Aridh Lissukun (Sukun Sementara)</option>
@@ -318,7 +409,7 @@ tailwind.config = {
           </select>
         </div>
 
-        <div>
+        <div class="no-print">
           <label class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">2. Pilih Harakat Huruf Akhir (Sebelum Disukunkan)</label>
           <div class="grid grid-cols-3 gap-2" id="waqaf-harakat-btns">
             <button data-harakat="fathah" class="harakat-btn py-2.5 px-3 rounded-xl text-xs font-semibold bg-emeralddeep text-white transition">Fathah (Manshub)</button>
@@ -338,7 +429,7 @@ tailwind.config = {
         </div>
       </div>
 
-      <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+      <div class="print-card lg:col-span-7 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
         <h3 class="text-lg font-bold text-ink mb-1">Visualisasi Wajah Bacaan &amp; Kadar Harakat</h3>
         <p class="text-xs text-muted mb-4">Grafik menampilkan opsi harakat (2, 4, 5, atau 6) yang berlaku pada masing-masing metode berhenti.</p>
         <div class="chart-container">
@@ -348,7 +439,7 @@ tailwind.config = {
     </div>
   </section>
 
-  <section id="bagian-mushaf" class="scroll-mt-20">
+  <section id="bagian-mushaf" class="scroll-mt-28">
     <div class="mb-6">
       <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 05 • Rasm Utsmani &amp; Adh-Dhabt Mushaf</span>
       <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Tanda Shifr, Al-Alifat As-Sab' &amp; Perbandingan Mushaf</h2>
@@ -357,13 +448,13 @@ tailwind.config = {
       </p>
     </div>
 
-    <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm mb-8">
+    <div class="print-card bg-white p-6 rounded-2xl border border-stonewarm shadow-sm mb-8">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
         <div>
           <h3 class="text-lg font-bold text-ink">Laboratorium Tanda Shifr &amp; Al-Alifat As-Sab' (Tujuh Alif)</h3>
           <p class="text-xs text-muted">Ubah kondisi pembacaan di samping untuk melihat perubahan bunyi pada <em>Shifr Mustadir</em> dan 7 kata <em>Shifr Mustathil</em>.</p>
         </div>
-        <div class="inline-flex rounded-xl bg-sand p-1 border border-stonewarm">
+        <div class="no-print inline-flex rounded-xl bg-sand p-1 border border-stonewarm">
           <button id="toggle-shifr-washal" class="px-4 py-2 rounded-lg text-xs font-bold bg-emeralddeep text-white transition">Kondisi Washal (Sambung)</button>
           <button id="toggle-shifr-waqaf" class="px-4 py-2 rounded-lg text-xs font-bold text-muted hover:text-ink transition">Kondisi Waqaf (Berhenti)</button>
         </div>
@@ -397,7 +488,7 @@ tailwind.config = {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="alifat-sab-grid"></div>
     </div>
 
-    <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+    <div class="print-card bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
       <div class="mb-4">
         <h3 class="text-lg font-bold text-ink">Perbandingan Tanda Mad: Mushaf Standar Indonesia vs Mushaf Madinah</h3>
         <p class="text-xs text-muted mt-1">
@@ -439,7 +530,51 @@ tailwind.config = {
   </div>
 </footer>
 
+</div>
+
 <script>
+const htmlRoot = document.documentElement;
+const bodyEl = document.body;
+const previewBanner = document.getElementById('preview-banner');
+let activeZoom = '100';
+
+function applyZoom(level) {
+  activeZoom = level;
+  htmlRoot.classList.remove('zoom-115', 'zoom-130');
+  if (level === '115') htmlRoot.classList.add('zoom-115');
+  if (level === '130') htmlRoot.classList.add('zoom-130');
+
+  document.querySelectorAll('.zoom-btn').forEach(btn => {
+    if (btn.dataset.zoom === level) {
+      btn.className = 'zoom-btn px-2.5 py-1 rounded-md text-xs font-bold bg-emeralddeep text-white transition';
+    } else {
+      btn.className = 'zoom-btn px-2.5 py-1 rounded-md text-xs font-semibold text-muted hover:text-ink transition';
+    }
+  });
+}
+
+document.querySelectorAll('.zoom-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyZoom(btn.dataset.zoom));
+});
+
+function enterPreviewMode() {
+  htmlRoot.classList.add('is-preview');
+  bodyEl.classList.add('preview-active');
+  previewBanner.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function exitPreviewMode() {
+  htmlRoot.classList.remove('is-preview');
+  bodyEl.classList.remove('preview-active');
+  previewBanner.classList.add('hidden');
+}
+
+document.getElementById('btn-open-preview').addEventListener('click', enterPreviewMode);
+document.getElementById('btn-banner-close').addEventListener('click', exitPreviewMode);
+document.getElementById('btn-banner-print').addEventListener('click', () => window.print());
+document.getElementById('btn-direct-print').addEventListener('click', () => window.print());
+
 const wrapLabel = (str) => {
   if (str.length <= 16) return str;
   const words = str.split(' ');
@@ -780,7 +915,7 @@ const asliItems = [
 function renderAsliCards(filter = 'all') {
   const filtered = filter === 'all' ? asliItems : asliItems.filter(i => i.group === filter);
   document.getElementById('asli-cards-container').innerHTML = filtered.map(item => `
-    <div class="bg-white p-5 rounded-2xl border border-stonewarm shadow-sm flex flex-col justify-between">
+    <div class="print-card bg-white p-5 rounded-2xl border border-stonewarm shadow-sm flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between gap-2 mb-2">
           <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emeraldsoft text-emeralddeep">${item.badge}</span>
@@ -1188,4 +1323,4 @@ document.getElementById('mushaf-table-body').innerHTML = mushafComparison.map(ro
 `).join('');
 </script>
 </body>
-  </html>
+</html>
