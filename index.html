@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kajian Lengkap Ilmu Tajwid: Materi Mad &amp; Contoh Penerapannya</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        arabic: ['"Amiri"', 'serif'],
+      },
+      colors: {
+        alabaster: '#FAF8F5',
+        sand: '#F2EFE9',
+        stonewarm: '#E6E0D6',
+        ink: '#1E293B',
+        muted: '#475569',
+        emeralddeep: '#0F766E',
+        emeraldsoft: '#CCFBF1',
+        amberwarm: '#B45309',
+        ambersoft: '#FEF3C7',
+      }
+    }
+  }
+}
+</script>
+<style>
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+  max-height: 400px;
+}
+@media (min-width: 768px) {
+  .chart-container {
+    height: 350px;
+  }
+}
+.arabic-text {
+  font-family: 'Amiri', serif;
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+</style>
+</head>
+<body class="bg-alabaster text-ink font-sans antialiased selection:bg-emeraldsoft selection:text-emeralddeep">
+
+<!-- Chosen Palette: Warm Alabaster & Deep Emerald Harmony (Alabaster #FAF8F5, Sand #F2EFE9, Deep Slate #1E293B, Deep Emerald #0F766E, Warm Amber #B45309) -->
+<!-- Application Structure Plan: Aplikasi dirancang dengan arsitektur tematik-modular dalam satu halaman (SPA) yang dipandu oleh navigasi atas lengket (sticky navigation). Struktur ini dipilih agar pengguna dapat memahami fondasi dasar (makhraj Al-Jauf, 4 skala harakat, dan hirarki kekuatan Mad) terlebih dahulu sebelum mengeksplorasi cabang hukum Mad secara interaktif berdasarkan pemicunya (Asli, Sebab Hamzah, Sebab Sukun) serta aspek teknis mushaf (Rasm Utsmani dan Dhabt). Setiap bagian dilengkapi simulator interaktif—seperti Simulator Aqwas Sababain, Kalkulator Wajah Waqaf (Sukun Mahdh, Raum, Isymam), dan Sakelar Washal/Waqaf Al-Alifat As-Sab'—untuk mengubah aturan teoritis yang kompleks menjadi pengalaman belajar aktif dan komparatif. -->
+<!-- Visualization & Content Choices: 1. Hirarki Kekuatan Mad (Maratibul Mudud) -> Goal: Compare & Organize -> Horizontal Bar Chart (Chart.js Canvas) -> Interaksi: Tooltip rincian sebab dan rentang harakat -> Memudahkan pemahaman urutan kekuatan 7 jenis Mad. 2. Simulator Pertemuan Dua Sebab (Aqwas Sababain) -> Goal: Relationships & Inform -> Kartu Pemilih Kasus + Toggle Washal/Waqaf -> Interaksi: Klik 5 contoh ayat dan ubah kondisi berhenti/sambung -> Menunjukkan secara langsung sebab mana yang menang dan mana yang gugur. 3. Kalkulator Wajah Waqaf (Muttashil & 'Aridh) -> Goal: Compare & Inform -> Grouped Bar Chart (Chart.js Canvas) + Selector Jenis Mad & Harakat Akhir -> Interaksi: Pilih jenis mad dan harakat akhir (Fathah/Kasrah/Dhammah) -> Memvisualisasikan jumlah wajah bacaan dan kadar harakat Sukun Mahdh, Raum, dan Isymam. 4. Laboratorium Rasm Utsmani (Shifr & Al-Alifat As-Sab') -> Goal: Change & Inform -> Toggle Interaktif Kondisi Washal vs Waqaf -> Interaksi: Ubah status bacaan untuk melihat perubahan panjang harakat pada 7 kata khusus Hafsh. 5. Komparator Mushaf Indonesia vs Madinah -> Goal: Organize & Compare -> Tabel Interaktif & Filter Aspek Dhabt -> Membandingkan penandaan visual kedua mushaf. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<header class="bg-sand border-b border-stonewarm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emeralddeep text-white">Riwayat Hafsh 'an 'Ashim</span>
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white border border-stonewarm text-muted">Jalur Syathibiyyah &amp; Catatan Thayyibah</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-ink mb-4">Kajian Lengkap Ilmu Tajwid: Materi Mad &amp; Penerapannya</h1>
+    <p class="text-base sm:text-lg text-muted max-w-4xl leading-relaxed mb-6">
+      Eksplorasi interaktif hukum bacaan panjang (<em>Mad</em>) yang berpangkal pada nazham klasik <em>Tuhfatul Athfal</em> dan <em>Al-Muqaddimah Al-Jazariyyah</em>. Pelajari landasan <em>makhraj Al-Jauf</em>, empat skala ukuran harakat, kaidah pertemuan dua sebab (<em>Aqwas Sababain</em>), wajah <em>waqaf</em>, hingga perbedaan tanda bantu (<em>adh-dhabt</em>) pada Mushaf Standar Indonesia dan Mushaf Madinah.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+        <div class="text-xs font-semibold uppercase tracking-wider text-emeralddeep mb-1">Makhraj Huruf Mad</div>
+        <div class="text-lg font-bold text-ink">Rongga Al-Jauf</div>
+        <p class="text-xs text-muted mt-1">Rongga tenggorokan hingga mulut; bunyi berhenti seiring habisnya napas (<em>Jazariyyah</em> bait 10).</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+        <div class="text-xs font-semibold uppercase tracking-wider text-emeralddeep mb-1">Gugus Huruf Waayin</div>
+        <div class="flex items-center justify-between">
+          <span class="text-lg font-bold text-ink">و • ا • ي</span>
+          <span class="arabic-text text-2xl font-bold text-emeralddeep">نُوحِيهَا</span>
+        </div>
+        <p class="text-xs text-muted mt-1">Alif setelah fathah, ya' sukun setelah kasrah, wawu sukun setelah dhammah.</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+        <div class="text-xs font-semibold uppercase tracking-wider text-amberwarm mb-1">4 Ukuran Harakat</div>
+        <div class="text-lg font-bold text-ink">2 • 4 • 5 • 6 Harakat</div>
+        <p class="text-xs text-muted mt-1"><em>Qashr</em> (2), <em>Tawassuth</em> (4), <em>Fuwaiqut Tawassuth</em> (5), dan <em>Thuul/Isyba'</em> (6).</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-stonewarm shadow-sm">
+        <div class="text-xs font-semibold uppercase tracking-wider text-amberwarm mb-1">Disiplin Tilawah</div>
+        <div class="text-lg font-bold text-ink">Konsistensi Tartil</div>
+        <p class="text-xs text-muted mt-1">Berlaku di seluruh tempo bacaan (termasuk <em>hadr</em>); memendekkan mad wajib tergolong <em>lahn khafi</em>.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-stonewarm shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex space-x-2 overflow-x-auto py-3 no-scrollbar" id="main-nav">
+      <a href="#bagian-hirarki" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold bg-emeralddeep text-white transition">1. Hirarki &amp; Aqwas Sababain</a>
+      <a href="#bagian-asli" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">2. Mad Asli (2 Harakat)</a>
+      <a href="#bagian-hamzah" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">3. Mad Sebab Hamzah</a>
+      <a href="#bagian-sukun" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">4. Mad Sebab Sukun &amp; Waqaf</a>
+      <a href="#bagian-mushaf" class="nav-link whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-sand hover:text-ink transition">5. Rasm &amp; Perbandingan Mushaf</a>
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+  <section id="bagian-hirarki" class="scroll-mt-20">
+    <div class="mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 01 • Fondasi &amp; Kaidah Pertemuan Sebab</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Hirarki Kekuatan Mad &amp; Kaidah Aqwas Sababain</h2>
+      <p class="text-muted leading-relaxed max-w-4xl">
+        Bagian ini memetakan urutan kekuatan tujuh jenis <em>mad</em> (<em>Maratibul Mudud</em>) sebagaimana dirumuskan Syaikh Ibrahim As-Samannudi dalam <em>La'ali Al-Bayan</em>, serta mempraktikkan kaidah <strong>Aqwas Sababain</strong>. Melalui grafik perbandingan dan simulator kasus di bawah, Anda dapat melihat bagaimana sebab yang lebih kuat menggugurkan sebab yang lebih lemah ketika dua pemicu bertemu pada satu huruf yang sama, maupun cara menyelaraskan panjang bacaan saat dua <em>mad</em> hadir beriringan.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+        <h3 class="text-lg font-bold text-ink mb-1">Grafik Urutan Kekuatan Mad (Maratibul Mudud)</h3>
+        <p class="text-xs text-muted mb-4">Arahkan kursor atau ketuk batang grafik untuk melihat alasan kekuatan faktor penyebab dan ukuran harakatnya.</p>
+        <div class="chart-container">
+          <canvas id="hierarchyChart"></canvas>
+        </div>
+        <div class="mt-4 p-3.5 rounded-xl bg-sand text-xs text-muted leading-relaxed">
+          <strong class="text-ink">Kaidah Keselarasan Beriringan:</strong> Jika dua <em>mad</em> sejenis beriringan dalam satu rangkaian bacaan (misalnya dua <em>Muttashil</em> atau dua <em>'Aridh</em>), wajib disamakan harakatnya. Jika berbeda jenis, <em>mad</em> yang lebih lemah tidak boleh melebihi panjang <em>mad</em> yang lebih kuat (contoh: jika berhenti pada <em>'Aridh</em> 4 harakat lalu berhenti pada <em>Mad Lin</em>, maka <em>Mad Lin</em> hanya boleh 4 atau 2 harakat, tidak boleh 6).
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <h3 class="text-lg font-bold text-ink">Simulator Aqwas Sababain</h3>
+            <p class="text-xs text-muted">Pilih salah satu dari 5 pertemuan nyata dalam Al-Qur'an dan uji kondisi bacaannya.</p>
+          </div>
+          <div class="inline-flex rounded-lg bg-sand p-1 border border-stonewarm" role="group">
+            <button type="button" id="btn-aqwa-washal" class="px-3 py-1.5 text-xs font-semibold rounded-md bg-emeralddeep text-white transition">Kondisi Washal</button>
+            <button type="button" id="btn-aqwa-waqaf" class="px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-ink transition">Kondisi Waqaf</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5" id="aqwa-buttons"></div>
+
+        <div id="aqwa-display" class="p-5 rounded-xl bg-alabaster border border-stonewarm"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bagian-asli" class="scroll-mt-20">
+    <div class="mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 02 • Kadar Qashr (2 Harakat)</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Mad Asli (Thabi'i), Mulhaqat, dan Pengecualian Hafsh</h2>
+      <p class="text-muted leading-relaxed max-w-4xl">
+        <em>Mad Thabi'i</em> adalah bacaan panjang alami berdurasi <strong>2 harakat</strong> tanpa bergantung pada sebab <em>hamzah</em> maupun <em>sukun</em>. Di bagian ini, Anda dapat menyaring seluruh rumpun bacaan 2 harakat—mulai dari bentuk pokok <em>Kalimi</em> dan <em>Harfi</em> (<code>حَيٌّ طَهُرَ</code>), tiga hukum pengikutnya (<em>Mulhaqat</em>: <em>'Iwadh</em>, <em>Tamkin</em>, dan <em>Shilah Qashirah</em>), <em>Mad Badal</em> serta <em>Syabih bil Badal</em>, hingga tiga pengecualian khusus riwayat Hafsh pada hukum <em>ha dhamir</em>.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-6" id="asli-filters">
+      <button data-filter="all" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-semibold bg-emeralddeep text-white transition">Semua Kategori (7)</button>
+      <button data-filter="pokok" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-medium bg-white border border-stonewarm text-muted hover:text-ink transition">Thabi'i Pokok</button>
+      <button data-filter="mulhaq" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-medium bg-white border border-stonewarm text-muted hover:text-ink transition">Mulhaqat (Pengikut)</button>
+      <button data-filter="badal" class="asli-filter-btn px-4 py-2 rounded-lg text-xs font-medium bg-white border border-stonewarm text-muted hover:text-ink transition">Badal &amp; Syabih</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8" id="asli-cards-container"></div>
+
+    <div class="bg-white p-6 rounded-2xl border border-amberwarm/30 shadow-sm">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="px-2.5 py-1 rounded-md bg-ambersoft text-amberwarm text-xs font-bold">Catatan Khusus Riwayat Hafsh</span>
+        <h3 class="text-lg font-bold text-ink">Tiga Pengecualian Hukum Ha Dhamir (Ha Kinayah)</h3>
+      </div>
+      <p class="text-sm text-muted mb-4">
+        Secara kaidah umum, <em>ha dhamir</em> dipanjangkan 2 harakat (<em>Mad Shilah Qashirah</em>) jika diapit dua huruf berharakat hidup dan tidak bertemu hamzah, serta berharakat dhammah kecuali jika didahului kasrah atau ya' sukun. Namun riwayat Hafsh jalur <em>Syathibiyyah</em> memiliki tiga pengecualian:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-alabaster border border-stonewarm">
+          <div class="text-xs font-bold text-emeralddeep mb-1">1. Dibaca Panjang Meski Didahului Sukun</div>
+          <div class="arabic-text text-2xl font-bold text-ink my-2">وَيَخْلُدْ فِيهِۦ مُهَانًا</div>
+          <div class="text-xs font-semibold text-muted mb-1">QS Al-Furqan: 69</div>
+          <p class="text-xs text-muted leading-relaxed">Tetap dibaca panjang 2 harakat (<em>Mad Shilah Qashirah</em> / dijuluki sebagian catatan ajar sebagai <em>Mad Mubalaghah</em>) meski didahului <em>ya' sukun</em>, untuk menekankan celaan atas kehinaan pelaku maksiat.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-alabaster border border-stonewarm">
+          <div class="text-xs font-bold text-amberwarm mb-1">2. Dibaca Pendek Meski Diapit Huruf Hidup</div>
+          <div class="arabic-text text-2xl font-bold text-ink my-2">وَإِن تَشْكُرُوا۟ يَرْضَهُ لَكُمْ</div>
+          <div class="text-xs font-semibold text-muted mb-1">QS Az-Zumar: 7</div>
+          <p class="text-xs text-muted leading-relaxed"><em>Ha dhamir</em> pada <em>yardhahu</em> tidak dipanjangkan karena bentuk asal katanya memiliki <em>alif</em> mati (<em>yardhāhu</em>) yang terbuang akibat faktor <em>i'rab</em>.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-alabaster border border-stonewarm">
+          <div class="text-xs font-bold text-ink mb-1">3. Tetap Dhammah Meski Didahului Ya' Sukun</div>
+          <div class="arabic-text text-2xl font-bold text-ink my-2">عَلَيْهُ ٱللَّهَ • أَنسَانِيهُ</div>
+          <div class="text-xs font-semibold text-muted mb-1">QS Al-Fath: 10 &amp; QS Al-Kahfi: 63</div>
+          <p class="text-xs text-muted leading-relaxed">Tidak dibaca <em>kasrah</em> (seperti kebiasaan kaidah umum setelah <em>ya' sukun</em>), melainkan tetap berharakat <em>dhammah</em> mengikuti riwayat qiraat yang <em>mutawatirah</em>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bagian-hamzah" class="scroll-mt-20">
+    <div class="mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 03 • Mad Far'i Pemicu Hamzah</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Mad Wajib Muttashil, Jaiz Munfashil, Shilah Thawilah &amp; Lintas Jalur</h2>
+      <p class="text-muted leading-relaxed max-w-4xl">
+        Ketika huruf <em>mad</em> bertemu dengan huruf <em>hamzah</em>, panjang bacaan meningkat menjadi <strong>4 atau 5 harakat</strong> pada riwayat Hafsh jalur <em>Syathibiyyah</em>. Bagian ini merinci perbedaan pertemuan dalam satu kata (<em>Muttashil</em>) dan antar kata (<em>Munfashil</em> serta <em>Shilah Thawilah</em>), lengkap dengan catatan hukum lanjutan dari jalur <em>Thayyibatun Nasyr</em> (<em>Mad Ta'zhim</em> dan <em>Mad Tabri'ah</em>).
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-bold text-ink">Mad Wajib Muttashil</h3>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-emeraldsoft text-emeralddeep">4–5 Harakat (Washal)</span>
+        </div>
+        <p class="text-sm text-muted leading-relaxed mb-4">
+          Huruf <em>mad</em> bertemu huruf <em>hamzah</em> dalam <strong>satu kata yang sama</strong>. Seluruh imam qiraah bersepakat wajib memanjangkannya melebihi <em>qashr</em> dan dilarang keras memendekkannya menjadi 2 harakat.
+        </p>
+        <div class="space-y-2">
+          <div class="p-3 rounded-xl bg-alabaster border border-stonewarm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-ink">Hamzah di Tengah Kata</div>
+              <div class="text-xs text-muted">QS Al-Baqarah: 6 &amp; QS Al-Ahzab: 4</div>
+            </div>
+            <div class="arabic-text text-xl font-bold text-emeralddeep">سَوَاۤءٌ عَلَيْهِمْ • اَبْنَاۤءَكُمْ</div>
+          </div>
+          <div class="p-3 rounded-xl bg-alabaster border border-stonewarm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-ink">Hamzah di Ujung Kata (Mutatharrifah)</div>
+              <div class="text-xs text-muted">Saat waqaf bisa mencapai 6 harakat (lihat Kalkulator Waqaf di Bagian 4)</div>
+            </div>
+            <div class="arabic-text text-xl font-bold text-emeralddeep">حُنَفَآءَ • السَّمَاءِ • يَشَاءُ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-lg font-bold text-ink">Mad Jaiz Munfashil &amp; Shilah Thawilah</h3>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-ambersoft text-amberwarm">4–5 Harakat (Syathibiyyah)</span>
+        </div>
+        <p class="text-sm text-muted leading-relaxed mb-4">
+          <strong>Jaiz Munfashil</strong> terjadi bila <em>mad</em> di akhir kata bertemu <em>hamzah</em> di awal kata berikutnya (terbagi menjadi <em>Haqiqi</em> dan <em>Hukmi</em>). <strong>Shilah Thawilah</strong> terjadi bila <em>ha dhamir</em> bersyarat <em>shilah</em> bertemu <em>hamzah</em>.
+        </p>
+        <div class="space-y-2">
+          <div class="p-3 rounded-xl bg-alabaster border border-stonewarm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-ink">Mad Jaiz Munfashil</div>
+              <div class="text-xs text-muted">QS Al-Kafirun: 2 &amp; QS Al-Quraisy: 4</div>
+            </div>
+            <div class="arabic-text text-xl font-bold text-amberwarm">لَآ أَعْبُدُ • الَّذِيْٓ اَطْعَمَهُمْ</div>
+          </div>
+          <div class="p-3 rounded-xl bg-alabaster border border-stonewarm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-ink">Mad Shilah Thawilah (Kubra)</div>
+              <div class="text-xs text-muted">QS Al-Baqarah: 255 &amp; QS Al-Balad: 7</div>
+            </div>
+            <div class="arabic-text text-xl font-bold text-amberwarm">عِنْدَهٗٓ اِلَّا • يَرَهٗٓ اَحَدٌ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-sand p-5 rounded-2xl border border-stonewarm">
+      <h4 class="text-sm font-bold text-ink mb-2">Catatan Perbandingan Jalur Thayyibatun Nasyr (Tidak Berlaku di Syathibiyyah)</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-muted leading-relaxed">
+        <div class="bg-white p-4 rounded-xl border border-stonewarm">
+          <strong class="text-emeralddeep text-sm block mb-1">Mad Ta'zhim (4 Harakat)</strong>
+          Pemanjangan <em>Mad Munfashil</em> sepanjang <strong>4 harakat</strong> (<em>tawassuth</em>, bukan <em>isyba'</em>) khusus pada kalimat tauhid <span class="arabic-text text-base font-bold text-ink">لَآ إِلَٰهَ إِلَّا</span> bagi pembaca yang mengambil jalur <em>qashr</em> (2 harakat) untuk <em>Munfashil</em> (seperti Hafsh jalur Al-Fil, Abu 'Amr, Hisyam, Abu Ja'far, Al-Halwani dari Qalun, dan Al-Asbahani dari Warsy dengan syarat <em>tahrirat</em> masing-masing).
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-stonewarm">
+          <strong class="text-amberwarm text-sm block mb-1">Mad Tabri'ah (Khusus Imam Hamzah)</strong>
+          Penambahan panjang bacaan pada huruf penafian <span class="arabic-text text-base font-bold text-ink">لَا</span> (seperti pada ungkapan <span class="arabic-text text-base font-bold text-ink">لَا رَيْبَ فِيهِ</span>, <span class="arabic-text text-base font-bold text-ink">لَا جَرَمَ</span>, dan <span class="arabic-text text-base font-bold text-ink">لَا مَرَدَّ</span>) yang diriwayatkan oleh sebagian imam qiraah khusus bagi bacaan Imam Hamzah.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bagian-sukun" class="scroll-mt-20">
+    <div class="mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 04 • Mad Far'i Pemicu Sukun &amp; Tata Cara Waqaf</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Mad Lazim, Mad Farq, Mad 'Aridh Lissukun &amp; Mad Lin</h2>
+      <p class="text-muted leading-relaxed max-w-4xl">
+        Sukun yang bertemu huruf <em>mad</em> terbagi menjadi dua: <strong>sukun asli</strong> yang melahirkan <em>Mad Lazim</em> (wajib 6 harakat) dan <em>Mad Farq</em>, serta <strong>sukun sementara (<em>'aridh</em>)</strong> akibat berhenti (<em>waqaf</em>) yang melahirkan <em>Mad 'Aridh Lissukun</em> dan <em>Mad Lin</em>. Gunakan penjelajah kategori <em>Mad Lazim</em> serta <strong>Kalkulator Wajah Waqaf Interaktif</strong> di bawah untuk membedah kombinasi <em>Sukun Mahdh</em>, <em>Raum</em>, dan <em>Isymam</em>.
+      </p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm mb-8">
+      <h3 class="text-lg font-bold text-ink mb-2">Empat Kategori Mad Lazim (6 Harakat) &amp; Mad Farq</h3>
+      <p class="text-xs text-muted mb-4">Klik tab di bawah untuk meninjau syarat, contoh ayat, dan catatan ketelitian tajwid pada setiap kategori.</p>
+      <div class="flex flex-wrap gap-2 mb-4" id="lazim-tabs">
+        <button data-lazim="mutsaqqal-kilmi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-emeralddeep text-white transition">1. Mutsaqqal Kilmi</button>
+        <button data-lazim="mukhaffaf-kilmi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition">2. Mukhaffaf Kilmi</button>
+        <button data-lazim="mutsaqqal-harfi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition">3. Mutsaqqal Harfi</button>
+        <button data-lazim="mukhaffaf-harfi" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition">4. Mukhaffaf Harfi</button>
+        <button data-lazim="mad-farq" class="lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition">5. Mad Farq</button>
+      </div>
+      <div id="lazim-content" class="p-5 rounded-xl bg-alabaster border border-stonewarm"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm space-y-5">
+        <div>
+          <h3 class="text-lg font-bold text-ink mb-1">Kalkulator Wajah Waqaf</h3>
+          <p class="text-xs text-muted">Pilih jenis bacaan dan harakat huruf terakhir sebelum diwaqafkan untuk melihat seluruh wajah bacaan yang sah.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">1. Pilih Jenis Mad Saat Waqaf</label>
+          <select id="waqaf-type-select" class="w-full p-2.5 rounded-xl bg-alabaster border border-stonewarm text-sm font-semibold text-ink focus:outline-none focus:border-emeralddeep">
+            <option value="aridh">Mad 'Aridh Lissukun (Sukun Sementara)</option>
+            <option value="muttashil">Mad Wajib Muttashil Ujung Hamzah</option>
+            <option value="lin">Mad Lin (Wawu/Ya Sukun Setelah Fathah)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-muted mb-2">2. Pilih Harakat Huruf Akhir (Sebelum Disukunkan)</label>
+          <div class="grid grid-cols-3 gap-2" id="waqaf-harakat-btns">
+            <button data-harakat="fathah" class="harakat-btn py-2.5 px-3 rounded-xl text-xs font-semibold bg-emeralddeep text-white transition">Fathah (Manshub)</button>
+            <button data-harakat="kasrah" class="harakat-btn py-2.5 px-3 rounded-xl text-xs font-medium bg-sand text-muted hover:text-ink transition">Kasrah (Majrur)</button>
+            <button data-harakat="dhammah" class="harakat-btn py-2.5 px-3 rounded-xl text-xs font-medium bg-sand text-muted hover:text-ink transition">Dhammah (Marfu')</button>
+          </div>
+        </div>
+
+        <div id="waqaf-summary-box" class="p-4 rounded-xl bg-alabaster border border-stonewarm space-y-2"></div>
+
+        <div class="p-3.5 rounded-xl bg-ambersoft/60 border border-amberwarm/20 text-xs text-muted leading-relaxed">
+          <strong class="text-amberwarm block mb-1">Definisi Metode &amp; Pengecualian Akhir Kata:</strong>
+          • <strong>Sukun Mahdh:</strong> Menyukunkan huruf akhir secara murni.<br>
+          • <strong>Raum:</strong> Melafalkan 1/3 bunyi harakat (kasrah/dhammah) dengan suara lirih untuk pendengar terdekat; dihukumi setara <em>washal</em>.<br>
+          • <strong>Isymam:</strong> Memadukan kedua bibir tanpa suara setelah menyukunkan huruf akhir sebagai isyarat <em>dhammah</em>; dihukumi setara <em>sukun mahdh</em>.<br>
+          • <strong>Pengecualian:</strong> <em>Raum</em> dan <em>Isymam</em> dilarang pada <em>ha ta'nits</em> (seperti <code>الصَّلَاةَ</code>), serta pada <em>ha dhamir</em> yang didahului ya' sukun, wawu sukun, kasrah, atau dhammah menurut pendapat pilihan Imam Ibnul Jazari.
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+        <h3 class="text-lg font-bold text-ink mb-1">Visualisasi Wajah Bacaan &amp; Kadar Harakat</h3>
+        <p class="text-xs text-muted mb-4">Grafik menampilkan opsi harakat (2, 4, 5, atau 6) yang berlaku pada masing-masing metode berhenti.</p>
+        <div class="chart-container">
+          <canvas id="waqafChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bagian-mushaf" class="scroll-mt-20">
+    <div class="mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-emeralddeep">Bagian 05 • Rasm Utsmani &amp; Adh-Dhabt Mushaf</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-ink mt-1 mb-3">Tanda Shifr, Al-Alifat As-Sab' &amp; Perbandingan Mushaf</h2>
+      <p class="text-muted leading-relaxed max-w-4xl">
+        Ketepatan membaca panjang-pendek Al-Qur'an bergantung pada pengenalan tanda lingkaran di atas huruf <em>alif</em> dalam <em>Rasm Utsmani</em> serta perbedaan tanda bantu (<em>adh-dhabt</em>) antar mushaf cetak. Gunakan sakelar <strong>Kondisi Washal vs Waqaf</strong> di bawah untuk menguji cara membaca tujuh kata <em>Al-Alifat As-Sab'</em>, lalu bandingkan sistem penandaan Mushaf Standar Indonesia (LPMQ) dengan Mushaf Madinah.
+      </p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm mb-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+        <div>
+          <h3 class="text-lg font-bold text-ink">Laboratorium Tanda Shifr &amp; Al-Alifat As-Sab' (Tujuh Alif)</h3>
+          <p class="text-xs text-muted">Ubah kondisi pembacaan di samping untuk melihat perubahan bunyi pada <em>Shifr Mustadir</em> dan 7 kata <em>Shifr Mustathil</em>.</p>
+        </div>
+        <div class="inline-flex rounded-xl bg-sand p-1 border border-stonewarm">
+          <button id="toggle-shifr-washal" class="px-4 py-2 rounded-lg text-xs font-bold bg-emeralddeep text-white transition">Kondisi Washal (Sambung)</button>
+          <button id="toggle-shifr-waqaf" class="px-4 py-2 rounded-lg text-xs font-bold text-muted hover:text-ink transition">Kondisi Waqaf (Berhenti)</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="p-4 rounded-xl bg-alabaster border border-stonewarm">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold uppercase text-amberwarm">Shifr Mustadir (Bulat Kecil)</span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white border border-stonewarm">Gugur di Washal &amp; Waqaf</span>
+          </div>
+          <p class="text-xs text-muted mb-3">Menandakan huruf tambahan (<em>za'idah</em>) yang <strong>tidak pernah dibaca panjang</strong> kapan pun.</p>
+          <div class="flex flex-wrap gap-3 items-center justify-between bg-white p-3 rounded-lg border border-stonewarm">
+            <div class="arabic-text text-xl font-bold text-ink">قَالُوا • مِائَةُ • ثَمُودَا • أُوْلَئِكَ</div>
+            <div id="shifr-mustadir-status" class="text-xs font-bold text-amberwarm">Status: Dibaca Pendek (Alif/Huruf Tambahan Gugur)</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-alabaster border border-stonewarm">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold uppercase text-emeralddeep">Shifr Mustathil (Lonjong Tegak)</span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-white border border-stonewarm">Al-Alifat As-Sab'</span>
+          </div>
+          <p class="text-xs text-muted mb-3">Huruf <em>alif</em> gugur (pendek) saat <em>washal</em>, tetapi ditetapkan panjang <strong>2 harakat</strong> saat <em>waqaf</em>.</p>
+          <div class="bg-white p-3 rounded-lg border border-stonewarm">
+            <div id="shifr-mustathil-status" class="text-xs font-bold text-emeralddeep">Status Saat Ini (Washal): Alif Gugur / Dibaca Pendek</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="alifat-sab-grid"></div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-stonewarm shadow-sm">
+      <div class="mb-4">
+        <h3 class="text-lg font-bold text-ink">Perbandingan Tanda Mad: Mushaf Standar Indonesia vs Mushaf Madinah</h3>
+        <p class="text-xs text-muted mt-1">
+          Kedua mushaf menghasilkan bunyi bacaan dan hukum tajwid yang sama persis; perbedaannya hanya pada sistem simbol bantu (<em>adh-dhabt</em>). Mushaf Standar Indonesia (LPMQ) merujuk riwayat Ad-Dani dengan delapan tanda bantu untuk memandu pembaca non-Arab, sedangkan Mushaf Madinah memakai tanda gelombang seragam (<code>~</code>).
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="bg-sand border-b border-stonewarm text-xs uppercase tracking-wider text-ink">
+              <th class="p-3.5 font-bold rounded-tl-xl">Aspek Penandaan Mad</th>
+              <th class="p-3.5 font-bold">Mushaf Standar Indonesia (LPMQ)</th>
+              <th class="p-3.5 font-bold">Mushaf Madinah</th>
+              <th class="p-3.5 font-bold rounded-tr-xl">Implikasi Praktis bagi Pembaca</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stonewarm text-xs sm:text-sm" id="mushaf-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="mt-5 p-4 rounded-xl bg-alabaster border border-stonewarm text-xs text-muted leading-relaxed">
+        <strong class="text-ink">Catatan Ketelitian Visual (Mushaf Indonesia vs Madinah):</strong> Pada Mushaf Standar Indonesia, perbedaan sudut tanda layar (runcing ke bawah untuk <em>Wajib Muttashil</em> vs runcing ke samping untuk <em>Jaiz Munfashil</em>) membantu sekitar 90% kasus dengan sekitar 10% pengecualian. Pada Mushaf Madinah yang memakai tanda gelombang seragam (<code>~</code>), posisi duduknya <em>hamzah</em> (tidak bertumpu pada alif vs di atas/bawah alif) hanya memberi petunjuk sekitar 50%, sehingga pemahaman batas kata tetap menjadi kunci utama.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-sand border-t border-stonewarm mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+    <div>
+      <strong class="text-ink">Kajian Lengkap Ilmu Tajwid: Materi Mad</strong> • Disusun berdasarkan kaidah <em>Tuhfatul Athfal</em>, <em>Al-Muqaddimah Al-Jazariyyah</em>, dan Riwayat Hafsh 'an 'Ashim.
+    </div>
+    <div class="text-center sm:text-right space-y-1">
+      <div>Penguasaan teori perlu disempurnakan melalui <em>talaqqi</em> dan <em>musyafahah</em> bersama guru bersanad.</div>
+      <div class="font-semibold text-emeralddeep">Pengembang: "IFS"</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const wrapLabel = (str) => {
+  if (str.length <= 16) return str;
+  const words = str.split(' ');
+  const lines = [];
+  let currentLine = '';
+  words.forEach(word => {
+    if ((currentLine + ' ' + word).trim().length <= 16) {
+      currentLine = (currentLine + ' ' + word).trim();
+    } else {
+      if (currentLine) lines.push(currentLine);
+      currentLine = word;
+    }
+  });
+  if (currentLine) lines.push(currentLine);
+  return lines;
+};
+
+const hierarchyData = [
+  {
+    name: 'Mad Lazim',
+    score: 7,
+    harakat: '6 Harakat (Wajib / Disepakati)',
+    reason: 'Sukun asli (tetap saat washal & waqaf), menyatu dalam satu kata/huruf, disepakati 6 harakat oleh seluruh qurra.',
+    example: 'وَلَا الضَّاۤلِّيْنَ • طٰسٓمّٓ'
+  },
+  {
+    name: 'Mad Wajib Muttashil',
+    score: 6,
+    harakat: '4–5 Harakat (6 saat waqaf hamzah)',
+    reason: 'Hamzah menyatu dalam satu kata yang sama; disepakati wajib melebihi 2 harakat.',
+    example: 'سَوَاۤءٌ عَلَيْهِمْ'
+  },
+  {
+    name: 'Mad Aridh Lissukun',
+    score: 5,
+    harakat: '2, 4, atau 6 Harakat (Saat Waqaf)',
+    reason: 'Faktor sukun berada dalam satu kata yang sama, meski sukunnya baru muncul sementara ketika waqaf.',
+    example: 'الرَّحْمٰنِ الرَّحِيْمِ'
+  },
+  {
+    name: 'Mad Jaiz Munfashil',
+    score: 4,
+    harakat: '4–5 Harakat (Syathibiyyah)',
+    reason: 'Hamzah berada setelah huruf mad, namun terpisah di awal kata berikutnya.',
+    example: 'لَآ أَعْبُدُ'
+  },
+  {
+    name: 'Mad Badal',
+    score: 3,
+    harakat: '2 Harakat (Riwayat Hafsh)',
+    reason: 'Hamzah mendahului huruf mad sebagai pengganti hamzah kedua yang sukun.',
+    example: 'ءَامَنُوا • أُوتُوا'
+  },
+  {
+    name: 'Mad Thabi\'i (Asli)',
+    score: 2,
+    harakat: '2 Harakat (Alami)',
+    reason: 'Tidak bergantung pada sebab hamzah maupun sukun.',
+    example: 'الْوَسْوَاسِ • نُوحِيهَا'
+  },
+  {
+    name: 'Mad Lin',
+    score: 1,
+    harakat: '2, 4, atau 6 Harakat (Hanya Waqaf)',
+    reason: 'Huruf lin (wawu/ya sukun setelah fathah) hanya menjadi mad saat waqaf sukun mahdh; gugur saat washal/raum.',
+    example: 'قُرَيْشٍ • لَا رَيْبَ'
+  }
+];
+
+const ctxHierarchy = document.getElementById('hierarchyChart').getContext('2d');
+new Chart(ctxHierarchy, {
+  type: 'bar',
+  data: {
+    labels: hierarchyData.map(d => wrapLabel(d.name)),
+    datasets: [{
+      label: 'Indeks Peringkat Kekuatan',
+      data: hierarchyData.map(d => d.score),
+      backgroundColor: [
+        '#0F766E',
+        '#115E59',
+        '#1D4ED8',
+        '#B45309',
+        '#D97706',
+        '#64748B',
+        '#94A3B8'
+      ],
+      borderRadius: 6,
+      barThickness: 22
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: (items) => {
+            const idx = items[0].dataIndex;
+            return `Peringkat #${8 - hierarchyData[idx].score}: ${hierarchyData[idx].name}`;
+          },
+          label: (ctx) => {
+            const item = hierarchyData[ctx.dataIndex];
+            return [
+              `Kadar: ${item.harakat}`,
+              `Alasan: ${item.reason}`
+            ];
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 8,
+        ticks: {
+          stepSize: 1,
+          callback: (val) => val === 0 ? '' : `Lv ${val}`
+        },
+        grid: { color: '#E6E0D6' }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { font: { size: 11, weight: '600' }, color: '#1E293B' }
+      }
+    }
+  }
+});
+
+const aqwaCases = [
+  {
+    id: 'lazim-badal',
+    title: 'Lazim + Badal',
+    arabic: 'ءَآمِّينَ',
+    surah: 'QS Al-Maidah: 2',
+    causes: 'Alif didahului hamzah (Badal) sekaligus diikuti mim bertasydid (Lazim Mutsaqqal Kilmi).',
+    washal: {
+      winner: 'Mad Lazim Mutsaqqal Kilmi (6 Harakat)',
+      dropped: 'Mad Badal (2 Harakat) gugur',
+      detail: 'Karena Mad Lazim berada di puncak hirarki kekuatan, bacaan wajib dipanjangkan 6 harakat.'
+    },
+    waqaf: {
+      winner: 'Mad Lazim Mutsaqqal Kilmi (6 Harakat)',
+      dropped: 'Mad Badal (2 Harakat) gugur',
+      detail: 'Sukun asli pada tasydid tetap berlaku saat waqaf sehingga panjang bacaan tetap wajib 6 harakat.'
+    }
+  },
+  {
+    id: 'muttashil-badal',
+    title: 'Muttashil + Badal',
+    arabic: 'بُرَآءُ • رِئَاءَ',
+    surah: 'QS Al-Mumtahanah: 4 & Al-Baqarah: 264',
+    causes: 'Hamzah mendahului alif (Badal) dan hamzah lain mengikuti alif dalam satu kata (Muttashil).',
+    washal: {
+      winner: 'Mad Wajib Muttashil (4–5 Harakat)',
+      dropped: 'Mad Badal (2 Harakat) gugur',
+      detail: 'Muttashil lebih kuat daripada Badal, sehingga dibaca 4 atau 5 harakat.'
+    },
+    waqaf: {
+      winner: 'Mad Wajib Muttashil + Aridh (4, 5, atau 6 Harakat)',
+      dropped: 'Mad Badal (2 Harakat) gugur',
+      detail: 'Saat waqaf pada hamzah ujung, berkumpul 3 sebab (Badal, Muttashil, Aridh); Badal gugur dan berlaku hukum waqaf Muttashil.'
+    }
+  },
+  {
+    id: 'aridh-badal',
+    title: 'Aridh + Badal',
+    arabic: 'مُسْتَهْزِءُونَ • خَاسِئِينَ',
+    surah: 'QS Al-Baqarah: 14 & 65',
+    causes: 'Wawu/ya didahului hamzah (Badal) dan diikuti huruf akhir yang disukunkan bila waqaf (Aridh).',
+    washal: {
+      winner: 'Mad Badal (2 Harakat)',
+      dropped: 'Sebab Aridh tidak muncul saat washal',
+      detail: 'Karena dibaca sambung, sukun sementara tidak ada sehingga hanya tersisa Mad Badal 2 harakat.'
+    },
+    waqaf: {
+      winner: 'Mad Aridh Lissukun (2, 4, atau 6 Harakat)',
+      dropped: 'Mad Badal kalah oleh Aridh',
+      detail: 'Saat waqaf muncul sebab Aridh yang lebih kuat daripada Badal, sehingga boleh dibaca 2, 4, atau 6 harakat.'
+    }
+  },
+  {
+    id: 'munfashil-badal',
+    title: 'Munfashil + Badal',
+    arabic: 'وَجَاءُوا أَبَاهُمْ',
+    surah: 'QS Yusuf: 16',
+    causes: 'Wawu didahului hamzah (Badal) sekaligus bertemu hamzah di awal kata berikutnya (Munfashil).',
+    washal: {
+      winner: 'Mad Jaiz Munfashil (4–5 Harakat)',
+      dropped: 'Mad Badal (2 Harakat) gugur',
+      detail: 'Saat dibaca sambung, Munfashil mengalahkan Badal sehingga dipanjangkan 4 atau 5 harakat.'
+    },
+    waqaf: {
+      winner: 'Mad Badal (2 Harakat)',
+      dropped: 'Sebab Munfashil hilang karena berhenti di kata pertama',
+      detail: 'Apabila berhenti pada kata pertama, pertemuan dengan hamzah kata kedua terputus sehingga kembali menjadi Mad Badal 2 harakat.'
+    }
+  },
+  {
+    id: 'muttashil-aridh',
+    title: 'Muttashil + Aridh',
+    arabic: 'السَّمَاءُ • جِيءَ',
+    surah: 'QS Al-Baqarah: 22 & Az-Zumar: 69',
+    causes: 'Huruf mad bertemu hamzah ujung dalam satu kata (Muttashil) yang disukunkan karena waqaf (Aridh).',
+    washal: {
+      winner: 'Mad Wajib Muttashil (4–5 Harakat)',
+      dropped: 'Sebab Aridh belum ada saat washal',
+      detail: 'Saat sambung berlaku murni hukum Mad Wajib Muttashil 4 atau 5 harakat.'
+    },
+    waqaf: {
+      winner: 'Muttashil + Aridh (4, 5, atau 6 Harakat — Dilarang 2 Harakat)',
+      dropped: 'Opsi 2 harakat milik Aridh gugur',
+      detail: 'Meski pembaca terbiasa membaca Aridh 2 harakat, kekuatan Muttashil memaksa minimal 4 atau 5 harakat (dan boleh naik ke 6).'
+    }
+  }
+];
+
+let currentAqwaIdx = 0;
+let currentAqwaMode = 'washal';
+
+function renderAqwa() {
+  const btnsContainer = document.getElementById('aqwa-buttons');
+  btnsContainer.innerHTML = aqwaCases.map((c, idx) => `
+    <button onclick="selectAqwa(${idx})" class="text-left p-2.5 rounded-xl border text-xs transition ${idx === currentAqwaIdx ? 'bg-emeraldsoft/70 border-emeralddeep text-ink font-bold' : 'bg-alabaster border-stonewarm text-muted hover:text-ink'}">
+      <div class="flex items-center justify-between">
+        <span>${idx + 1}. ${c.title}</span>
+        <span class="arabic-text text-base font-bold text-emeralddeep">${c.arabic.split('•')[0]}</span>
+      </div>
+    </button>
+  `).join('');
+
+  const item = aqwaCases[currentAqwaIdx];
+  const state = item[currentAqwaMode];
+  document.getElementById('aqwa-display').innerHTML = `
+    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stonewarm pb-3 mb-3">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-emeralddeep">${item.title}</span>
+        <div class="text-xs text-muted">${item.surah}</div>
+      </div>
+      <div class="arabic-text text-3xl font-bold text-ink">${item.arabic}</div>
+    </div>
+    <p class="text-xs text-muted mb-3"><strong class="text-ink">Analisis Penyebab:</strong> ${item.causes}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+      <div class="p-3 rounded-lg bg-emeraldsoft/50 border border-emeralddeep/30">
+        <div class="text-[11px] font-bold uppercase text-emeralddeep">Hukum Berlaku (${currentAqwaMode.toUpperCase()})</div>
+        <div class="text-sm font-bold text-ink mt-0.5">${state.winner}</div>
+      </div>
+      <div class="p-3 rounded-lg bg-ambersoft/50 border border-amberwarm/30">
+        <div class="text-[11px] font-bold uppercase text-amberwarm">Keterangan Sebab Lemah</div>
+        <div class="text-sm font-bold text-ink mt-0.5">${state.dropped}</div>
+      </div>
+    </div>
+    <p class="text-xs text-ink leading-relaxed bg-white p-3 rounded-lg border border-stonewarm">${state.detail}</p>
+  `;
+}
+
+window.selectAqwa = (idx) => {
+  currentAqwaIdx = idx;
+  renderAqwa();
+};
+
+document.getElementById('btn-aqwa-washal').addEventListener('click', () => {
+  currentAqwaMode = 'washal';
+  document.getElementById('btn-aqwa-washal').className = 'px-3 py-1.5 text-xs font-semibold rounded-md bg-emeralddeep text-white transition';
+  document.getElementById('btn-aqwa-waqaf').className = 'px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-ink transition';
+  renderAqwa();
+});
+
+document.getElementById('btn-aqwa-waqaf').addEventListener('click', () => {
+  currentAqwaMode = 'waqaf';
+  document.getElementById('btn-aqwa-waqaf').className = 'px-3 py-1.5 text-xs font-semibold rounded-md bg-emeralddeep text-white transition';
+  document.getElementById('btn-aqwa-washal').className = 'px-3 py-1.5 text-xs font-semibold rounded-md text-muted hover:text-ink transition';
+  renderAqwa();
+});
+
+renderAqwa();
+
+const asliItems = [
+  {
+    group: 'pokok',
+    badge: 'Mad Thabi\'i Pokok',
+    title: 'Mad Thabi\'i Kalimi',
+    condition: 'Alif setelah fathah, ya\' sukun setelah kasrah, dan wawu sukun setelah dhammah tanpa sebab hamzah/sukun. Termasuk alif khanjariyah, alif maqshurah (ى), dan Lafdzul Jalalah.',
+    examples: 'الْوَسْوَاسِ • فِيْ صُدُوْرِ • اَعُوْذُ • اللّٰهُ',
+    ref: 'QS An-Nas: 1, 4, 5'
+  },
+  {
+    group: 'pokok',
+    badge: 'Mad Thabi\'i Pokok',
+    title: 'Mad Thabi\'i Harfi',
+    condition: 'Huruf pembuka surah (fawatihus suwar) dua huruf (selain alif) yang terhimpun dalam ungkapan حَيٌّ طَهُرَ (ح، ي، ط، هـ، ر).',
+    examples: 'طٰهٰ • يٰسۤ • حٰمۤ',
+    ref: 'QS Thaha: 1, Yasin: 1, Fussilat: 1'
+  },
+  {
+    group: 'mulhaq',
+    badge: 'Mulhaq Thabi\'i',
+    title: 'Mad \'Iwadh',
+    condition: 'Pemanjangan 2 harakat ketika berhenti (waqaf) pada huruf bertanwin fathah (fathatain) di akhir kata.',
+    examples: 'عِوَجًا ← عِوَجَا • اَبَدًا ← اَبَدَا',
+    ref: 'QS Al-Kahfi: 1 & 3'
+  },
+  {
+    group: 'mulhaq',
+    badge: 'Mulhaq Thabi\'i',
+    title: 'Mad Tamkin',
+    condition: 'Bertemunya dua huruf ya\' dalam satu kata, khususnya ya\' bertasydid kasrah bertemu dengan ya\' sukun.',
+    examples: 'وَالْاُمِّيّٖنَ • عِلِّيِّيْنَ',
+    ref: 'QS Ali \'Imran: 20 & Al-Muthaffifin: 18'
+  },
+  {
+    group: 'mulhaq',
+    badge: 'Mulhaq Thabi\'i',
+    title: 'Mad Shilah Qashirah',
+    condition: 'Ha dhamir (ha kinayah) diapit dua huruf berharakat hidup dan tidak bertemu hamzah (pendek jika sebelum/sesudahnya sukun seperti فِيْهِ هُدًى).',
+    examples: 'فَاُمُّهٗ هَاوِيَةٌ • رَبِّهٖ وَنَهَى',
+    ref: 'QS Al-Qari\'ah: 9 & An-Nazi\'at: 40'
+  },
+  {
+    group: 'badal',
+    badge: 'Badal (2 Harakat Hafsh)',
+    title: 'Mad Badal',
+    condition: 'Huruf mad pengganti hamzah kedua yang sukun setelah hamzah berharakat (ءَأْدَمَ ← ءَادَمَ). Riwayat Hafsh membacanya tetap 2 harakat (berbeda dengan Warsy: 2, 4, 6).',
+    examples: 'ءَامَنُوا • إِيمَٰنًا • أُوتُوا',
+    ref: 'QS Al-Baqarah: 13, Ali \'Imran: 173 & 186'
+  },
+  {
+    group: 'badal',
+    badge: 'Serupa Badal',
+    title: 'Mad Syabih bil Badal',
+    condition: 'Mad asli yang didahului hamzah, namun huruf mad-nya asli dan bukan hasil penggantian hamzah sukun.',
+    examples: 'مَسْئُولًا • بَئِيسٍ • الْمَوْءُۥدَةُ • الْقُرْءَانُ',
+    ref: 'Tersebar di berbagai surah'
+  }
+];
+
+function renderAsliCards(filter = 'all') {
+  const filtered = filter === 'all' ? asliItems : asliItems.filter(i => i.group === filter);
+  document.getElementById('asli-cards-container').innerHTML = filtered.map(item => `
+    <div class="bg-white p-5 rounded-2xl border border-stonewarm shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emeraldsoft text-emeralddeep">${item.badge}</span>
+          <span class="text-[11px] font-semibold text-muted">2 Harakat</span>
+        </div>
+        <h3 class="text-base font-bold text-ink mb-2">${item.title}</h3>
+        <p class="text-xs text-muted leading-relaxed mb-4">${item.condition}</p>
+      </div>
+      <div class="pt-3 border-t border-stonewarm">
+        <div class="arabic-text text-xl font-bold text-ink mb-1">${item.examples}</div>
+        <div class="text-[11px] text-emeralddeep font-medium">${item.ref}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderAsliCards();
+
+document.querySelectorAll('.asli-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.asli-filter-btn').forEach(b => {
+      b.className = 'asli-filter-btn px-4 py-2 rounded-lg text-xs font-medium bg-white border border-stonewarm text-muted hover:text-ink transition';
+    });
+    btn.className = 'asli-filter-btn px-4 py-2 rounded-lg text-xs font-semibold bg-emeralddeep text-white transition';
+    renderAsliCards(btn.dataset.filter);
+  });
+});
+
+const lazimData = {
+  'mutsaqqal-kilmi': {
+    title: 'Mad Lazim Mutsaqqal Kilmi',
+    duration: 'Wajib 6 Harakat (Washal & Waqaf)',
+    desc: 'Huruf mad bertemu dengan huruf bertasydid (sukun asli yang dileburkan ke huruf berikutnya) dalam satu kata. Apabila kata berujung tasydid diwaqafkan (seperti صَوَآفَّ atau جَآنٌّ) maupun berujung sukun asli (محيآيْ), hukumnya tetap Mad Lazim 6 harakat dan tidak berubah menjadi Mad \'Aridh Lissukun.',
+    examples: 'وَلَا الضَّاۤلِّيْنَ (Al-Fatihah: 7) • اَلْحَاۤقَّةُ (Al-Haqqah: 1) • دَآبَّةٍ (Al-Jatsiyah: 4)'
+  },
+  'mukhaffaf-kilmi': {
+    title: 'Mad Lazim Mukhaffaf Kilmi',
+    duration: 'Wajib 6 Harakat (Washal & Waqaf)',
+    desc: 'Huruf mad bertemu dengan sukun asli tanpa tasydid dalam satu kata. Dalam seluruh Al-Qur\'an, contoh lafaz ini hanya terdapat pada dua tempat di Surah Yunus.',
+    examples: 'ءَآلْـٰٔنَ وَقَدْ كُنْتُمْ بِهٖ تَسْتَعْجِلُوْنَ (QS Yunus: 51) • ءَآلْـٰٔنَ وَقَدْ عَصَيْتَ قَبْلُ (QS Yunus: 91)'
+  },
+  'mutsaqqal-harfi': {
+    title: 'Mad Lazim Mutsaqqal Harfi',
+    duration: 'Wajib 6 Harakat',
+    desc: 'Terjadi pada huruf pembuka surah (fawatihus suwar) yang dieja tiga huruf dengan huruf mad di tengahnya dan di-idghamkan (dileburkan) ke huruf setelahnya.',
+    examples: 'طٰسٓمّٓ (QS Asy-Syu\'ara: 1 — dibaca thoo-siiim-miiim karena sin dilebur ke mim) • الٓمّٓ (QS Al-Baqarah: 1)'
+  },
+  'mukhaffaf-harfi': {
+    title: 'Mad Lazim Mukhaffaf Harfi',
+    duration: 'Wajib 6 Harakat (Huruf \'Ain boleh 4 atau 6, namun 6 lebih utama)',
+    desc: 'Terjadi pada huruf fawatihus suwar tiga huruf dengan huruf mad di tengahnya yang tidak di-idghamkan, terhimpun dalam كَمْ عَسَلْ نَقَصْ (ك، م، ع، س، ل، ن، ق، ص). Catatan ketelitian: lafaz seperti نۤ dan كۤهٰيٰعۤصۤ termasuk Mukhaffaf (bukan Mutsaqqal) karena tidak terdapat idgham di dalamnya.',
+    examples: 'يٰسۤ (Yasin: 1) • حٰمۤ (Fussilat: 1) • نۤ (Al-Qalam: 1) • كۤهٰيٰعۤصۤ (Maryam: 1)'
+  },
+  'mad-farq': {
+    title: 'Mad Farq (Pembeda Kalimat Tanya & Berita)',
+    duration: '6 Harakat (Ibdal — Wajah Utama) atau Tanpa Panjang (Tashil)',
+    desc: 'Pemanjangan pada hamzah untuk membedakan hamzah istifham (pertanyaan) dengan hamzah khabar (berita). Secara hukum bunyi masuk dalam rumpun Mad Lazim Kalimi. Sumber Yatlunahu mencatatnya pada 3 kata di 6 ayat (sedangkan panduan yang memisahkan آلْآنَ ke Mukhaffaf Kilmi mencatatnya di 4 ayat).',
+    examples: 'آلْآنَ (Yunus: 51, 91) • آللَّهُ (Yunus: 59, An-Naml: 59) • آلذَّكَرَيْنِ (Al-An\'am: 143, 144)'
+  }
+};
+
+function renderLazim(key) {
+  const d = lazimData[key];
+  document.getElementById('lazim-content').innerHTML = `
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+      <h4 class="text-base font-bold text-ink">${d.title}</h4>
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-emeraldsoft text-emeralddeep">${d.duration}</span>
+    </div>
+    <p class="text-xs sm:text-sm text-muted leading-relaxed mb-3">${d.desc}</p>
+    <div class="p-3 rounded-lg bg-white border border-stonewarm">
+      <span class="text-[11px] font-bold uppercase text-emeralddeep block mb-1">Contoh Penerapan Ayat:</span>
+      <div class="arabic-text text-xl font-bold text-ink">${d.examples}</div>
+    </div>
+  `;
+}
+
+renderLazim('mutsaqqal-kilmi');
+
+document.querySelectorAll('.lazim-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lazim-tab-btn').forEach(b => {
+      b.className = 'lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-medium bg-sand text-muted hover:text-ink transition';
+    });
+    btn.className = 'lazim-tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-emeralddeep text-white transition';
+    renderLazim(btn.dataset.lazim);
+  });
+});
+
+const waqafMatrix = {
+  aridh: {
+    fathah: {
+      totalFaces: '3 Wajah Waqaf',
+      example: 'الْعَالَمِينَ (QS Al-Fatihah: 2)',
+      explanation: 'Hanya berlaku Sukun Mahdh (2, 4, atau 6 harakat). Raum dan Isymam tidak masuk pada harakat fathah.',
+      sukun: [2, 4, 6],
+      raum: [],
+      isymam: []
+    },
+    kasrah: {
+      totalFaces: '4 Wajah Waqaf',
+      example: 'الرَّحِيمِ (QS Al-Fatihah: 3)',
+      explanation: 'Terdiri dari 3 wajah Sukun Mahdh (2, 4, 6 harakat) + 1 wajah Raum (2 harakat saja, karena Raum dihukumi seperti washal).',
+      sukun: [2, 4, 6],
+      raum: [2],
+      isymam: []
+    },
+    dhammah: {
+      totalFaces: '7 Wajah Waqaf',
+      example: 'نَسْتَعِينُ (QS Al-Fatihah: 5)',
+      explanation: 'Terdiri dari 3 wajah Sukun Mahdh (2, 4, 6 harakat) + 3 wajah Isymam (2, 4, 6 harakat) + 1 wajah Raum (2 harakat).',
+      sukun: [2, 4, 6],
+      raum: [2],
+      isymam: [2, 4, 6]
+    }
+  },
+  muttashil: {
+    fathah: {
+      totalFaces: '3 Wajah Waqaf',
+      example: 'حُنَفَآءَ (QS Al-Bayyinah: 5)',
+      explanation: 'Hanya berlaku Sukun Mahdh dengan kadar 4, 5, atau 6 harakat (2 harakat dilarang karena kekuatan Muttashil).',
+      sukun: [4, 5, 6],
+      raum: [],
+      isymam: []
+    },
+    kasrah: {
+      totalFaces: '5 Wajah Waqaf (Syathibiyyah)',
+      example: 'مِّنَ السَّمَاءِ (QS An-Nisa: 153)',
+      explanation: 'Terdiri dari 3 wajah Sukun Mahdh (4, 5, 6 harakat) + 2 wajah Raum (4 atau 5 harakat saja setara washal; jalur Thayyibah membolehkan 6 harakat).',
+      sukun: [4, 5, 6],
+      raum: [4, 5],
+      isymam: []
+    },
+    dhammah: {
+      totalFaces: '8 Wajah Waqaf',
+      example: 'يَشَاءُ (QS Ali \'Imran: 47)',
+      explanation: 'Terdiri dari 3 wajah Sukun Mahdh (4, 5, 6 harakat) + 2 wajah Raum (4, 5 harakat) + 3 wajah Isymam (4, 5, 6 harakat).',
+      sukun: [4, 5, 6],
+      raum: [4, 5],
+      isymam: [4, 5, 6]
+    }
+  },
+  lin: {
+    fathah: {
+      totalFaces: '3 Wajah Waqaf',
+      example: 'لَا رَيْبَ (QS Al-Baqarah: 2)',
+      explanation: 'Saat waqaf dengan Sukun Mahdh dibaca 2, 4, atau 6 harakat. Saat washal dibaca tanpa mad.',
+      sukun: [2, 4, 6],
+      raum: [],
+      isymam: []
+    },
+    kasrah: {
+      totalFaces: '3 Wajah Mad Lin (+ Raum Tanpa Mad)',
+      example: 'قُرَيْشٍ (QS Al-Quraisy: 1)',
+      explanation: 'Sukun Mahdh dibaca 2, 4, atau 6 harakat. Jika berhenti dengan Raum, hukum Mad Lin gugur (tidak dipanjangkan) karena Raum setara washal.',
+      sukun: [2, 4, 6],
+      raum: [],
+      isymam: []
+    },
+    dhammah: {
+      totalFaces: '6 Wajah Mad Lin (+ Raum Tanpa Mad)',
+      example: 'مِنْ خَوْفٍ / قَوْمُ (Contoh Marfu\')',
+      explanation: 'Sukun Mahdh (2, 4, 6 harakat) dan Isymam (2, 4, 6 harakat). Jika berhenti dengan Raum, pemanjangan Mad Lin gugur.',
+      sukun: [2, 4, 6],
+      raum: [],
+      isymam: [2, 4, 6]
+    }
+  }
+};
+
+let currentWaqafType = 'aridh';
+let currentWaqafHarakat = 'fathah';
+let waqafChartInstance = null;
+
+function updateWaqafModule() {
+  const data = waqafMatrix[currentWaqafType][currentWaqafHarakat];
+  document.getElementById('waqaf-summary-box').innerHTML = `
+    <div class="flex items-center justify-between">
+      <span class="px-2.5 py-1 rounded-md bg-emeralddeep text-white text-xs font-bold">${data.totalFaces}</span>
+      <span class="arabic-text text-xl font-bold text-ink">${data.example}</span>
+    </div>
+    <p class="text-xs text-muted leading-relaxed pt-1">${data.explanation}</p>
+  `;
+
+  const harakatBuckets = ['2 Harakat', '4 Harakat', '5 Harakat', '6 Harakat'];
+  const bucketVals = [2, 4, 5, 6];
+
+  const sukunSeries = bucketVals.map(v => data.sukun.includes(v) ? 1 : 0);
+  const raumSeries = bucketVals.map(v => data.raum.includes(v) ? 1 : 0);
+  const isymamSeries = bucketVals.map(v => data.isymam.includes(v) ? 1 : 0);
+
+  if (waqafChartInstance) {
+    waqafChartInstance.destroy();
+  }
+
+  const ctxWaqaf = document.getElementById('waqafChart').getContext('2d');
+  waqafChartInstance = new Chart(ctxWaqaf, {
+    type: 'bar',
+    data: {
+      labels: harakatBuckets.map(wrapLabel),
+      datasets: [
+        {
+          label: 'Sukun Mahdh',
+          data: sukunSeries,
+          backgroundColor: '#0F766E',
+          borderRadius: 6
+        },
+        {
+          label: 'Raum (1/3 Harakat)',
+          data: raumSeries,
+          backgroundColor: '#B45309',
+          borderRadius: 6
+        },
+        {
+          label: 'Isymam (Isyarat Bibir)',
+          data: isymamSeries,
+          backgroundColor: '#1D4ED8',
+          borderRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: { boxWidth: 12, font: { size: 11, weight: '600' } }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              return ctx.raw === 1
+                ? `${ctx.dataset.label}: BERLAKU (${ctx.label})`
+                : `${ctx.dataset.label}: Tidak berlaku`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11, weight: '600' } }
+        },
+        y: {
+          min: 0,
+          max: 1.2,
+          ticks: {
+            stepSize: 1,
+            callback: (val) => val === 1 ? 'Sah / Berlaku' : (val === 0 ? 'Tidak' : '')
+          },
+          grid: { color: '#E6E0D6' }
+        }
+      }
+    }
+  });
+}
+
+document.getElementById('waqaf-type-select').addEventListener('change', (e) => {
+  currentWaqafType = e.target.value;
+  updateWaqafModule();
+});
+
+document.querySelectorAll('.harakat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.harakat-btn').forEach(b => {
+      b.className = 'harakat-btn py-2.5 px-3 rounded-xl text-xs font-medium bg-sand text-muted hover:text-ink transition';
+    });
+    btn.className = 'harakat-btn py-2.5 px-3 rounded-xl text-xs font-semibold bg-emeralddeep text-white transition';
+    currentWaqafHarakat = btn.dataset.harakat;
+    updateWaqafModule();
+  });
+});
+
+updateWaqafModule();
+
+const alifatSabData = [
+  {
+    word: 'أَنَا۠',
+    surah: 'Seluruh Al-Qur\'an (mis. Al-Kafirun: 4)',
+    washal: 'Dibaca Pendek (Ana)',
+    waqaf: 'Dibaca Panjang 2 Harakat (Anaa)'
+  },
+  {
+    word: 'لَّٰكِنَّا۠',
+    surah: 'QS Al-Kahfi: 38 (Asal: Lākin anā)',
+    washal: 'Dibaca Pendek (Laakinna)',
+    waqaf: 'Dibaca Panjang 2 Harakat (Laakinnaa)'
+  },
+  {
+    word: 'ٱلظُّنُونَا۠',
+    surah: 'QS Al-Ahzab: 10',
+    washal: 'Dibaca Pendek (Azh-Zhunuuna)',
+    waqaf: 'Dibaca Panjang 2 Harakat (Azh-Zhunuunaa)'
+  },
+  {
+    word: 'ٱلرَّسُولَا۠',
+    surah: 'QS Al-Ahzab: 66',
+    washal: 'Dibaca Pendek (Ar-Rasuula)',
+    waqaf: 'Dibaca Panjang 2 Harakat (Ar-Rasuulaa)'
+  },
+  {
+    word: 'ٱلسَّبِيلَا۠',
+    surah: 'QS Al-Ahzab: 67',
+    washal: 'Dibaca Pendek (As-Sabiila)',
+    waqaf: 'Dibaca Panjang 2 Harakat (As-Sabiilaa)'
+  },
+  {
+    word: 'قَوَارِيرَا۠ (Ke-1)',
+    surah: 'QS Al-Insan: 15 (Ayat 16 gugur keduanya)',
+    washal: 'Dibaca Pendek (Qawaariira)',
+    waqaf: 'Dibaca Panjang 2 Harakat (Qawaariiraa)'
+  },
+  {
+    word: 'سَلَٰسِلَاْ',
+    surah: 'QS Al-Insan: 4 (Pengecualian khusus)',
+    washal: 'Dibaca Pendek (Salaasila)',
+    waqaf: 'Boleh 2 Wajah: Panjang (Salaasilaa) atau Sukun (Salaasil)'
+  }
+];
+
+let shifrMode = 'washal';
+
+function renderAlifatSab() {
+  const statusEl = document.getElementById('shifr-mustathil-status');
+  if (shifrMode === 'washal') {
+    statusEl.textContent = 'Status Saat Ini (Washal): Alif Gugur / Dibaca Pendek (1 Harakat)';
+    statusEl.className = 'text-xs font-bold text-amberwarm';
+  } else {
+    statusEl.textContent = 'Status Saat Ini (Waqaf): Alif Ditetapkan / Dibaca Panjang 2 Harakat';
+    statusEl.className = 'text-xs font-bold text-emeralddeep';
+  }
+
+  document.getElementById('alifat-sab-grid').innerHTML = alifatSabData.map((item, idx) => `
+    <div class="p-3.5 rounded-xl bg-alabaster border border-stonewarm flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-[11px] font-bold text-muted">#${idx + 1}</span>
+          <span class="arabic-text text-2xl font-bold text-ink">${item.word}</span>
+        </div>
+        <div class="text-[11px] text-muted mb-2">${item.surah}</div>
+      </div>
+      <div class="p-2 rounded-lg text-xs font-semibold ${shifrMode === 'washal' ? 'bg-ambersoft/70 text-amberwarm' : 'bg-emeraldsoft/70 text-emeralddeep'}">
+        ${shifrMode === 'washal' ? item.washal : item.waqaf}
+      </div>
+    </div>
+  `).join('');
+}
+
+renderAlifatSab();
+
+document.getElementById('toggle-shifr-washal').addEventListener('click', () => {
+  shifrMode = 'washal';
+  document.getElementById('toggle-shifr-washal').className = 'px-4 py-2 rounded-lg text-xs font-bold bg-emeralddeep text-white transition';
+  document.getElementById('toggle-shifr-waqaf').className = 'px-4 py-2 rounded-lg text-xs font-bold text-muted hover:text-ink transition';
+  renderAlifatSab();
+});
+
+document.getElementById('toggle-shifr-waqaf').addEventListener('click', () => {
+  shifrMode = 'waqaf';
+  document.getElementById('toggle-shifr-waqaf').className = 'px-4 py-2 rounded-lg text-xs font-bold bg-emeralddeep text-white transition';
+  document.getElementById('toggle-shifr-washal').className = 'px-4 py-2 rounded-lg text-xs font-bold text-muted hover:text-ink transition';
+  renderAlifatSab();
+});
+
+const mushafComparison = [
+  {
+    aspect: 'Huruf Mad pada Mad Thabi\'i',
+    indo: 'Huruf mad (ا، و، ي) diberi tanda sukun.',
+    madinah: 'Tidak diberi tanda sukun sama sekali.',
+    implication: 'Pada Mushaf Madinah, huruf mati dikenali dari ketiadaan harakat pada wawu dan ya\'.'
+  },
+  {
+    aspect: 'Harakat Panjang pada Lafdzul Jalalah',
+    indo: 'Mencantumkan fathah qaimah (fathah berdiri) pada huruf lam.',
+    madinah: 'Tidak mencantumkan fathah qaimah pada huruf lam.',
+    implication: 'Kedua mushaf tetap dibaca panjang dua harakat pada lafaz اللّٰه.'
+  },
+  {
+    aspect: 'Tanda Layar Wajib vs Jaiz',
+    indo: 'Dibedakan sudutnya: runcing ke bawah (Wajib Muttashil) vs runcing ke samping (Jaiz Munfashil).',
+    madinah: 'Menggunakan tanda gelombang (~) yang seragam untuk seluruh mad di atas 2 harakat.',
+    implication: 'Pembaca Mushaf Madinah harus mengenali batas pemisahan kata dan kedudukan hamzah.'
+  },
+  {
+    aspect: 'Penandaan Mad Shilah (Ha Dhamir)',
+    indo: 'Memakai dhammah terbalik atau alif kecil di bawah/samping ha.',
+    madinah: 'Memakai harakat biasa ditambah wawu kecil (ۥ) atau ya\' kecil (ۦ), serta gelombang (~) jika Thawilah.',
+    implication: 'Mushaf Madinah menampakkan secara visual huruf pengganti bunyi shilah.'
+  },
+  {
+    aspect: 'Penulisan Mad Badal',
+    indo: 'Hamzah berbentuk alif diberi tanda panjang langsung di atasnya.',
+    madinah: 'Kepala hamzah berharakat ditulis sebelum huruf mad (misal ءَامَنَّا).',
+    implication: 'Keduanya dibaca sama sepanjang dua harakat dalam riwayat Hafsh.'
+  }
+];
+
+document.getElementById('mushaf-table-body').innerHTML = mushafComparison.map(row => `
+  <tr class="hover:bg-alabaster/70 transition">
+    <td class="p-3.5 font-bold text-ink">${row.aspect}</td>
+    <td class="p-3.5 text-muted">${row.indo}</td>
+    <td class="p-3.5 text-muted">${row.madinah}</td>
+    <td class="p-3.5 text-emeralddeep font-medium">${row.implication}</td>
+  </tr>
+`).join('');
+</script>
+</body>
+  </html>
